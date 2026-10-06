@@ -9,33 +9,47 @@ graph = {
 
 
 def get_min(q):
-    mn = (0, (0, float('inf')))
+    mn = None
+    min_value = float('inf')
 
     for i in q:
-        if sum(q[i]) < sum(mn[1]):
-            mn = (i, q[i])
+        value = q[i][0] + q[i][1]
 
-    return mn[0]
+        if value < min_value:
+            min_value = value
+            mn = i
+
+    return mn
 
 
 def a_star(graph, prev, dst, path, pcost, q):
     mn = get_min(q)
+
+    if mn is None:
+        return []
+
     q.pop(mn)
 
     print("Connected nodes of current node", prev, "with h(n) value")
 
     for n in graph[prev][0]:
+
         if n not in path:
-            q[n] = (graph[n][1], graph[prev][0][n])
+
+            h = graph[n][1]
+            edge_cost = graph[prev][0][n]
+
+            q[n] = (h, edge_cost)
 
             print(n, "-->", q[n])
 
-            add1 = sum(q[n])
+            add1 = h + edge_cost
             path_cost = pcost + add1
 
             print("A* value for", n, "is:", path_cost)
 
     while q:
+
         mn = get_min(q)
 
         print("Selecting minimum vertex:", mn)
@@ -67,16 +81,19 @@ source = input("Enter source vertex: ")
 dest = input("Enter destination vertex: ")
 heuristic = int(input("Enter given heuristic value for source: "))
 
-path = a_star(
-    graph,
-    source,
-    dest,
-    [],
-    0,
-    {source: (heuristic, 0)}
-)
-
-if path:
-    print(path)
+if source not in graph or dest not in graph:
+    print("Invalid source or destination vertex")
 else:
-    print("Path not found")
+    path = a_star(
+        graph,
+        source,
+        dest,
+        [],
+        0,
+        {source: (heuristic, 0)}
+    )
+
+    if path:
+        print("Path:", path)
+    else:
+        print("Path not found")
