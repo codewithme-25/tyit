@@ -10,29 +10,30 @@ graph = {
 
 
 def greedy_search_rec(graph, prev, dest, path, q):
+
     neighbours = graph[prev][0].keys()
 
     for n in neighbours:
         if n not in path:
             q[n] = graph[n][1]
-            print(f"{n} -> {q[n]}")
+            print(n, "->", q[n])
 
     while q:
+
         mn = min(q, key=q.get)
 
-        print(f"Taking minimum h(n) vertex: {mn}")
+        print("Taking minimum h(n) vertex:", mn)
 
         if dest == mn:
             return path + [dest]
 
-        current_node = mn
         del q[mn]
 
         new_path = greedy_search_rec(
             graph,
-            current_node,
+            mn,
             dest,
-            path + [current_node],
+            path + [mn],
             q
         )
 
@@ -44,12 +45,18 @@ def greedy_search_rec(graph, prev, dest, path, q):
 
 source = input("Enter source vertex: ")
 
-result = greedy_search_rec(
-    graph,
-    source,
-    'G',
-    [source],
-    {}
-)
+if source not in graph:
+    print("Invalid source vertex")
+else:
+    result = greedy_search_rec(
+        graph,
+        source,
+        'G',
+        [source],
+        {}
+    )
 
-print("Resulting path:", result)
+    if result:
+        print("Resulting path:", result)
+    else:
+        print("Path not found")
