@@ -7,10 +7,10 @@ def associative():
     print("Associative law for Addition")
     lhs = a + (b + c)
     rhs = (a + b) + c
+    print("LHS =", lhs)
+    print("RHS =", rhs)
 
     if lhs == rhs:
-        print("LHS =", lhs)
-        print("RHS =", rhs)
         print("Associative law satisfied")
     else:
         print("Associative law not satisfied")
@@ -19,6 +19,8 @@ def associative():
     print("Associative law for Multiplication")
     lhs = a * (b * c)
     rhs = (a * b) * c
+    print("LHS =", lhs)
+    print("RHS =", rhs)
 
     if lhs == rhs:
         print("Associative law satisfied")
@@ -29,6 +31,8 @@ def associative():
     print("Associative law for Boolean AND")
     lhs = a and (b and c)
     rhs = (a and b) and c
+    print("LHS =", lhs)
+    print("RHS =", rhs)
 
     if lhs == rhs:
         print("Associative law satisfied")
@@ -39,6 +43,8 @@ def associative():
     print("Associative law for Boolean OR")
     lhs = a or (b or c)
     rhs = (a or b) or c
+    print("LHS =", lhs)
+    print("RHS =", rhs)
 
     if lhs == rhs:
         print("Associative law satisfied")
